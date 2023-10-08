@@ -43,9 +43,8 @@ class Core(threading.Thread):
                 print("Looping...")
         except KeyboardInterrupt:
             mqtt_subscribe_thread.do_run = False
-            self.client_mqtt.loop_stop()
             self.client_mqtt.disconnect()
-            exit(0)
+            exit()
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-BROKER = "broker.emqx.io"
+BROKER = "localhost"
 PORT = 1883
 USER = "user1"
 PASSWORD = "123456789"
