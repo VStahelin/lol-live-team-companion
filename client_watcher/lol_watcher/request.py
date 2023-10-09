@@ -44,10 +44,8 @@ def request(url, params=None, payload=None, headers=None, method=HTTP_METHODS.PU
 
         logging.info(f"Request to {url} was successful.")
 
-    except Exception as e:
-        print(e)
-        return None
-
+    except requests.exceptions.ConnectionError as e:
+        print(f"Client is not running.\n Details: {e}")
     return response
 
 

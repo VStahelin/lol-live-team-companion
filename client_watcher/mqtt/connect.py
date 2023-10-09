@@ -18,3 +18,10 @@ def connect_mqtt():
     client_mqtt.on_connect = on_connect
     client_mqtt.connect(BROKER, port=PORT)
     return client_mqtt
+
+
+class Connector:
+    client_mqtt = None
+
+    def __init__(self):
+        self.client_mqtt = connect_mqtt()
