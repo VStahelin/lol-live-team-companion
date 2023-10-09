@@ -7,3 +7,15 @@ MQTT_TOPICS = namedtuple(
     "test",
     "COMPANION",
 )
+
+
+HTTP_METHODS = namedtuple(
+    "HTTP_METHODS",
+    ["GET", "POST", "PUT", "PATCH", "DELETE"],
+)(
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+)
