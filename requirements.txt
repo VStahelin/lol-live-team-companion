@@ -12,3 +12,5 @@ platformdirs==3.11.0
 requests==2.31.0
 ruff==0.0.292
 urllib3==2.0.6
+fastapi~=0.103.2
+SQLAlchemy~=2.0.21
