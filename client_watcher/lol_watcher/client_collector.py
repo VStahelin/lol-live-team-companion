@@ -27,7 +27,7 @@ class ClientCollector:
                     topic=MQTT_TOPICS.COMPANION,
                     type=MESSAGE_TYPES.ACTION,
                     action=ACTION_TYPES.USER_DATA_UPDATE,
-                    message=get_active_player().status_code,
+                    message=get_active_player().json(),
                 )
             )
             time.sleep(5)

@@ -14,3 +14,4 @@ ruff==0.0.292
 urllib3==2.0.6
 fastapi~=0.103.2
 SQLAlchemy~=2.0.21
+starlette~=0.27.0
