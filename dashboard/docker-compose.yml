@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  dashboard:
+    networks:
+      - dev
+    container_name: dashboard
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    build:
+      context: dashboard
+      dockerfile: Dockerfile
+    environment:
+      ENV_VARIABLE: ${ENV_VARIABLE}
+      NEXT_PUBLIC_ENV_VARIABLE: ${NEXT_PUBLIC_ENV_VARIABLE}
+    env_file:
+      - .env
+    volumes:
+      - ./dashboard/src:/app/src
+      - ./dashboard/public:/app/public
+    restart: always
+
+networks:
+  dev:
+    driver: bridge
