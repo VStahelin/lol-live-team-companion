@@ -3,6 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from routes import items, data_stream
 
+from mqtt.shared_modules import client_mqtt
+
 app = FastAPI(debug=True)
 
 origins = ["*"]
