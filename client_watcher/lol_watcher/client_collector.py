@@ -1,6 +1,7 @@
 import time
 from threading import Thread
 
+from client_watcher import settings
 from client_watcher.constants import (
     MQTT_TOPICS,
     MqttMessage,
@@ -22,12 +23,18 @@ class ClientCollector:
 
     def get_data_from_client(self):
         while True:
+            message = (
+                get_active_player().json()
+                if not settings.DEBUG
+                else {"message": "This is a test message"}
+            )
+
             self.mqtt_publisher.publish(
                 MqttMessage(
                     topic=MQTT_TOPICS.COMPANION,
                     type=MESSAGE_TYPES.ACTION,
                     action=ACTION_TYPES.USER_DATA_UPDATE,
-                    message=get_active_player().json(),
+                    message=message,
                 )
             )
             time.sleep(5)

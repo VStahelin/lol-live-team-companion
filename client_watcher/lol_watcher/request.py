@@ -1,6 +1,6 @@
 import requests
 
-from client_watcher.configs import RIOT_CLIENT_URL
+from client_watcher.settings import RIOT_CLIENT_URL
 from client_watcher.constants import HTTP_METHODS
 
 

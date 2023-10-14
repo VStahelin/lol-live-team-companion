@@ -1,7 +1,7 @@
 import threading
 import time
 
-from client_watcher.configs import CLIENT_ID
+from client_watcher.settings import CLIENT_ID
 from client_watcher.constants import MQTT_TOPICS, MqttMessage, MESSAGE_TYPES
 from client_watcher.lol_watcher.client_collector import ClientCollector
 from client_watcher.mqtt import Subscribe
