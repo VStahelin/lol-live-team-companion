@@ -1,8 +1,4 @@
 repos:
--   repo: https://github.com/ambv/black
-    rev: 23.9.1  # Use an existing tag or commit.
-    hooks:
-    -   id: black
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
     hooks:
@@ -12,3 +8,7 @@ repos:
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
+-   repo: https://github.com/ambv/black
+    rev: 23.9.1  # Use an existing tag or commit.
+    hooks:
+    -   id: black
