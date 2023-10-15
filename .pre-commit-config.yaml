@@ -1,14 +1,14 @@
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+-   repo: https://github.com/ambv/black
+    rev: 23.9.1  # Use an existing tag or commit.
     hooks:
-    -   id: trailing-whitespace
+    -   id: black
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0
     hooks:
     -   id: pyupgrade
         args: [--py36-plus]
--   repo: https://github.com/ambv/black
-    rev: 23.9.1  # Use an existing tag or commit.
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
     hooks:
-    -   id: black
+    -   id: trailing-whitespace
