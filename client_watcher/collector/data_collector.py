@@ -2,20 +2,21 @@ import time
 from threading import Thread
 
 from client_watcher import settings
-from client_watcher.constants import (
-    MQTT_TOPICS,
-    MqttMessage,
-    MESSAGE_TYPES,
-    ACTION_TYPES,
-)
-from client_watcher.lol_watcher.endpoints.live_client_data.player import (
+from client_watcher.cache_manager import get_cache
+from client_watcher.collector.api.player import (
     get_active_player,
 )
+from client_watcher.constants import (
+    MqttMessage,
+)
 from client_watcher.mqtt import Publish
+
 from client_watcher.shared_modules import lock, client_mqtt
 
+MATCH_MQTT_TOPICS = get_cache("match_mqtt_topics")
 
-class ClientCollector:
+
+class DataCollector:
     def __init__(self):
         self.user_collector_thread = Thread(target=self.get_data_from_client)
         self.client_mqtt = None
@@ -31,10 +32,9 @@ class ClientCollector:
 
             self.mqtt_publisher.publish(
                 MqttMessage(
-                    topic=MQTT_TOPICS.COMPANION,
-                    type=MESSAGE_TYPES.ACTION,
-                    action=ACTION_TYPES.USER_DATA_UPDATE,
-                    message=message,
+                    topic=MATCH_MQTT_TOPICS.LOBBY,
+                    sender=settings.CLIENT_ID,
+                    data=message,
                 )
             )
             time.sleep(5)

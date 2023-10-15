@@ -2,6 +2,8 @@ DEBUG = True
 
 CLIENT_ID = "vitor-lol-live-companion"
 
+DEBUG_MATCH_ID = "EUW1_123456789"
+
 DATABASE_URL = "sqlite:///./localdatabase.db"
 
 MQTT_HOST = "localhost"

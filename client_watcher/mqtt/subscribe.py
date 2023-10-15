@@ -1,8 +1,8 @@
-import logging
 import threading
 import time
 
-from client_watcher.constants import MESSAGE_TYPES, ACTION_TYPES
+from constants import MqttMessage
+from client_watcher.mqtt.message_handler import message_handler
 
 
 class Subscribe(threading.Thread):
@@ -16,8 +16,8 @@ class Subscribe(threading.Thread):
         try:
             import json
 
-            message = json.loads(msg.payload)
-            self.message_handler(message)
+            message = MqttMessage(**json.loads(msg.payload))
+            message_handler(message, msg.topic)
 
         except Exception as e:
             print(f"Error in subscribe callback: {e}")
@@ -31,37 +31,6 @@ class Subscribe(threading.Thread):
 
         self.client_mqtt.subscribe(self.topic)
         self.client_mqtt.on_message = self.receive_message
-
-    def message_handler(self, message):  # noqa
-        message_type = message.get("type")
-        message_action = message.get("action")
-        message = message.get("message")
-
-        if not message_type not in MESSAGE_TYPES and not message:
-            raise Exception("Message not valid")
-
-        try:
-            match message_type:
-                case MESSAGE_TYPES.MESSAGE:
-                    print(f"Message: {message}")
-                case MESSAGE_TYPES.ACTION:
-                    match message_action:
-                        case ACTION_TYPES.PING:
-                            print(f"Ping: {message}")
-                        case ACTION_TYPES.USER_DATA_UPDATE:
-                            # This action will be removed when the server is implemented
-                            print(f"User data update: {message}")
-                        case ACTION_TYPES.USER_DATA_REQUEST:
-                            print(f"User data request: {message}")
-                case MESSAGE_TYPES.LOG:
-                    print(f"Log: {message}")
-                    logging.info(message)
-
-                case _:
-                    raise Exception("Message not valid")
-        except Exception as e:
-            print(f"Error in message handler: {e}")
-            print(f"Error in message handler: {message}")
 
     def run(self):
         self.client_mqtt.loop_start()

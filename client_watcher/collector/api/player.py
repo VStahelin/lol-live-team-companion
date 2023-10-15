@@ -1,4 +1,4 @@
-from client_watcher.lol_watcher import request
+from client_watcher.collector import request
 
 
 def get_active_player():

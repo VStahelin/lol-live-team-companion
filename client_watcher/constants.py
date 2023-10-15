@@ -2,15 +2,6 @@ import json
 from collections import namedtuple
 from dataclasses import dataclass
 
-MQTT_TOPICS = namedtuple(
-    "MQTT_Topics",
-    ["TEST", "COMPANION"],
-)(
-    "test",
-    "COMPANION",
-)
-
-
 HTTP_METHODS = namedtuple(
     "HTTP_Methods",
     ["GET", "POST", "PUT", "PATCH", "DELETE"],
@@ -20,6 +11,40 @@ HTTP_METHODS = namedtuple(
     "PUT",
     "PATCH",
     "DELETE",
+)
+
+
+MQTT_TOPICS = namedtuple(
+    "MQTT_Topics",
+    [
+        "ACT",
+        "ACT_TO_MASTER",
+        "ACT_TO_CLIENT",
+        "CLIENT_ABILITY",
+        "CLIENT_ITEMS",
+        "MATCH_DATA",
+        "MATCH_EVENTS",
+        "LOBBY",
+    ],
+)(
+    "actions",
+    "actions/master",
+    "actions/client",
+    "client/ability",
+    "client/items",
+    "match/data",
+    "match/events",
+    "lobby",
+)
+
+
+ACTS = namedtuple(
+    "Acts",
+    ["PING", "PONG", "DISCONNECT"],
+)(
+    "ping",
+    "pong",
+    "disconnect",
 )
 
 
@@ -34,28 +59,28 @@ MESSAGE_TYPES = namedtuple(
 
 ACTION_TYPES = namedtuple(
     "Action_Types",
-    ["PING", "USER_DATA_UPDATE", "USER_DATA_REQUEST"],
+    ["PING", "PONG", "DISCONNECT"],
 )(
     "ping",
-    "user_data",
-    "user_data_request",
+    "pong",
+    "disconnect",
 )
 
 
 @dataclass
 class MqttMessage:
-    topic: MQTT_TOPICS
-    type: MESSAGE_TYPES
-    message: str
-    action: ACTION_TYPES = None
+    topic: str
+    sender: str
+    data: dict
+    receiver: str = None
 
     @property
     def json(self):
         return {
             "topic": self.topic,
-            "type": self.type,
-            "message": self.message,
-            "action": self.action,
+            "sender": self.sender,
+            "receiver": self.receiver,
+            "data": self.data,
         }
 
     @property
