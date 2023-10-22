@@ -1,5 +1,13 @@
-fastapi
+fastapi~=0.103.2
 sse-starlette
 uvicorn[standard]
-asyncio
-sqlalchemy
+asyncio~=3.4.3
+sqlalchemy~=2.0.21
+fastapi-mqtt
+paho-mqtt~=1.6.1
+coolname~=2.2.0
+requests~=2.31.0
+cachetools~=5.3.1
+asyncpg~=0.28.0
+python-dotenv~=1.0.0
+psycopg2==2.9.9

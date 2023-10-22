@@ -3,29 +3,52 @@ version: '3.7'
 services:
   db:
     image: postgres:latest
-    container_name: my_postgres
-    environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+    container_name: postgres
+    env_file:
+      - app/.env
     ports:
       - "5432:5432"
+    networks:
+      - backend
     volumes:
       - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+
 
   fastapi:
+    container_name: fastapi
     build:
       context: .
-    container_name: my_fastapi
     ports:
       - "8000:8000"
+    networks:
+      - backend
     depends_on:
       - db
-    environment:
-      - DATABASE_URL=postgresql://myuser:mypassword@db/mydatabase
+    env_file:
+      - app/.env
     volumes:
       - ./app:/app
 
+#  ngrok:
+#    image: ngrok/ngrok:latest
+#    network_mode: "host"
+#    restart: unless-stopped
+#    container_name: ngrok
+#    command:
+#      - "start"
+#      - "--all"
+#      - "--config"
+#      - "/etc/ngrok.yml"
+#    volumes:
+#      - ./ngrok.yml:/etc/ngrok.yml
+#    ports:
+#      - "4040:4040"
 
 volumes:
   pg_data:
+
+
+networks:
+  backend:
