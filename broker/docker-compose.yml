@@ -16,6 +16,3 @@ volumes:
   data:
   log:
 
-networks:
-  default:
-    name: mqtt5-network
