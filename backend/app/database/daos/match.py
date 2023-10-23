@@ -23,11 +23,10 @@ def create(slug):
     return match
 
 
-def update(match_id, slug, **kwargs):
+def update(match_id, **kwargs):
     try:
         match = session.query(Match).filter(Match.id == match_id).first()
         if match:
-            match.slug = slug
             for key, value in kwargs.items():
                 setattr(match, key, value)
             session.commit()
