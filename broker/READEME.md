@@ -13,7 +13,7 @@ mosquitto_passwd -c /mosquitto/config/pwfile user1
 
 
 
-# Test 
+# Test
 
 ## Subscribe
 ```shell
