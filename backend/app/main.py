@@ -45,3 +45,9 @@ app.include_router(match.router, prefix="/match", tags=["match"])
 @app.get("/")
 async def root():
     return {"message": "Hello stranger"}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="localhost", port=8000)
